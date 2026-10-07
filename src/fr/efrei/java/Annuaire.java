@@ -5,7 +5,6 @@ import java.util.*;
 
 public class Annuaire {
 
-        public String identifiant;
         private static Map<String, Collaborateur> collaborateurs = new HashMap<>();
 
         public boolean ajouter(Collaborateur collaborateur) {
@@ -83,35 +82,6 @@ public class Annuaire {
         }
     }
 
-
-//        public List<Collaborateur> triesParNom() {
-//            List<Collaborateur> liste = new ArrayList<>(collaborateurs.values());
-//            for (int i = 0; i < liste.size() - 1; i++) {
-//                for (int j = i + 1; j < liste.size(); j++) {
-//                    if (liste.get(i).getNom().compareTo(liste.get(j).getNom()) > 0) {
-//                        Collaborateur temporaire = liste.get(i);
-//                        liste.set(i, liste.get(j));
-//                        liste.set(j, temporaire);
-//                    }
-//                }
-//            }
-//            return Collections.unmodifiableList(liste);
-//        }
-//
-//
-//        public List<Collaborateur> triesParSalaire() {
-//            List<Collaborateur> liste = new ArrayList<>(collaborateurs.values());
-//            for (int i = 0; i < liste.size() - 1; i++) {
-//                for (int j = i + 1; j < liste.size(); j++) {
-//                    if (Double.compare(liste.get(i).getSalaire(), liste.get(j).getSalaire()) > 0) {
-//                        Collaborateur temporaire = liste.get(i);
-//                        liste.set(i, liste.get(j));
-//                        liste.set(j, temporaire);
-//                    }
-//                }
-//            }
-//            return Collections.unmodifiableList(liste);
-//        }
 
 
 
