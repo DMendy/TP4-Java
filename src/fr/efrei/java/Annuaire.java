@@ -9,9 +9,9 @@ public class Annuaire {
 
         public boolean ajouter(Collaborateur collaborateur) {
             if (collaborateurs.containsKey(collaborateur.getIdentifiant())) {
-                return false;
+                throw new CollaborateurDejaExistantException(collaborateur.getIdentifiant());
             }
-            collaborateurs.put(String.format("C%03d", collaborateurs.size() - 1), collaborateur);
+            collaborateurs.put(collaborateur.getIdentifiant(), collaborateur);
             return true;
         }
 
@@ -25,6 +25,34 @@ public class Annuaire {
 
         public int taille() {
             return collaborateurs.size();
+        }
+
+        public List<Collaborateur> triesParNom() {
+            List<Collaborateur> liste = new ArrayList<>(collaborateurs.values());
+            for (int i = 0; i < liste.size() - 1; i++) {
+                for (int j = 0; j < liste.size() - 1 - i; j++) {
+                    if (liste.get(j).getNom().compareTo(liste.get(j + 1).getNom()) > 0) {
+                        Collaborateur temporaire = liste.get(j);
+                        liste.set(j, liste.get(j + 1));
+                        liste.set(j + 1, temporaire);
+                    }
+                }
+            }
+            return Collections.unmodifiableList(liste);
+        }
+
+        public List<Collaborateur> triesParSalaire() {
+            List<Collaborateur> liste = new ArrayList<>(collaborateurs.values());
+            for (int i = 0; i < liste.size() - 1; i++) {
+                for (int j = 0; j < liste.size() - 1 - i; j++) {
+                    if (Double.compare(liste.get(j).getSalaire(), liste.get(j + 1).getSalaire()) > 0) {
+                        Collaborateur temporaire = liste.get(j);
+                        liste.set(j, liste.get(j + 1));
+                        liste.set(j + 1, temporaire);
+                    }
+                }
+            }
+            return Collections.unmodifiableList(liste);
         }
 
         public List<Programmeur> programmeurs() {
