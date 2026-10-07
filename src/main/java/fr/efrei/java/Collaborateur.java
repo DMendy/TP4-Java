@@ -1,4 +1,5 @@
 package fr.efrei.java;
+
 import java.util.Scanner;
 
 public abstract class Collaborateur {
@@ -8,9 +9,9 @@ public abstract class Collaborateur {
     protected String prenom;
     protected String langagePrefere;
     protected double salaire;
-    protected Adresse adresse;
+    protected fr.efrei.java.Adresse adresse;
 
-    public Collaborateur(String nom, String prenom, String langagePrefere, double salaire, Adresse adresse) {
+    public Collaborateur(String nom, String prenom, String langagePrefere, double salaire, fr.efrei.java.Adresse adresse) {
         verifierNom(nom);
         verifierSalaire(salaire);
 
@@ -22,7 +23,7 @@ public abstract class Collaborateur {
     }
 
     public Collaborateur(String nom, String prenom, String langagePrefere, double salaire, String rue, int codePostal, String ville, String pays) {
-        this(nom, prenom, langagePrefere, salaire, new Adresse(rue, codePostal, ville, pays));
+        this(nom, prenom, langagePrefere, salaire, new fr.efrei.java.Adresse(rue, codePostal, ville, pays));
     }
 
     public Collaborateur(Scanner scanner){

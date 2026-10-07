@@ -1,7 +1,6 @@
 package fr.efrei.java;
+
 import java.util.*;
-
-
 
 public class Annuaire {
 
@@ -65,8 +64,8 @@ public class Annuaire {
             return liste;
         }
 
-        public List<Testeur> testeur() {
-            List<Testeur> liste = new ArrayList<>();
+        public List<fr.efrei.java.Testeur> testeur() {
+            List<fr.efrei.java.Testeur> liste = new ArrayList<>();
             for (Collaborateur c : collaborateurs.values()) {
                 if (c instanceof Testeur testeur) {
                     liste.add(testeur);

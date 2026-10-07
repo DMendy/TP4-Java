@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class MenuAnnuaire {
     public static void main(String[] args) {
-        Annuaire annuaire = new Annuaire();
+        fr.efrei.java.Annuaire annuaire = new Annuaire();
         Scanner scanner = new Scanner(System.in);
         boolean continuer = true;
 
@@ -16,7 +16,7 @@ public class MenuAnnuaire {
 
             switch (choix) {
                 case "1":
-                    Programmeur alice = new Programmeur("Martin", "Alice", "Java",
+                    fr.efrei.java.Programmeur alice = new Programmeur("Martin", "Alice", "Java",
                             48000, "2 rue des carrières", 92220, "Bagneux", "France");
                     alice.setIdentifiant("C001");
                     try {

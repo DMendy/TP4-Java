@@ -67,7 +67,7 @@ public class Adresse {
     }
     @Override
     public String toString() {
-        return "fr.efrei.java.Adresse{" +
+        return "fr.efrei.java.fr.efrei.java.fr.efrei.java.Adresse{" +
                 "rue='" + rue + '\'' +
                 ", codePostal=" + codePostal +
                 ", ville='" + ville + '\'' +
