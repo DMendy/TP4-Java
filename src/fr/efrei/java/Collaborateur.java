@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public abstract class Collaborateur {
 
-    protected String id;
+    protected String identifiant;
     protected String nom;
     protected String prenom;
     protected String langagePrefere;
@@ -73,6 +73,9 @@ public abstract class Collaborateur {
         return salaire;
     }
 
+    public String getIdentifiant(){
+        return identifiant;
+    }
     public void setSalaire(double salaire) {
         verifierSalaire(salaire);
         this.salaire = salaire;
@@ -90,6 +93,8 @@ public abstract class Collaborateur {
         return prenom;
     }
 
+
+
     public void setPrenom(String prenom) {
         verifierNom(prenom);
         this.prenom = prenom;
@@ -104,11 +109,8 @@ public abstract class Collaborateur {
         this.nom = nom;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setIdentifiant(String id) {
+        this.identifiant = id;
     }
 }
+
