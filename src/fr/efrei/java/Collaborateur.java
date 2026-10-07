@@ -1,3 +1,5 @@
+package fr.efrei.java;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -107,7 +109,7 @@ public abstract class Collaborateur {
     public static Collaborateur creerCollaborateur(Scanner scanner) {
         int choix;
         do {
-            System.out.println("1 - Programmeur, 2 - Testeur");
+            System.out.println("1 - fr.efrei.java.Programmeur, 2 - fr.efrei.java.Testeur");
             choix = scanner.nextInt();
             scanner.nextLine();
         } while (choix != 1 && choix != 2);

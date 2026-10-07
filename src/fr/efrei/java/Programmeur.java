@@ -1,4 +1,6 @@
-public class Programmeur extends Collaborateur implements Formateur{
+package fr.efrei.java;
+
+public class Programmeur extends Collaborateur implements Formateur {
 
     public Programmeur(String nom, String prenom, String langagePrefere, double salaire, String rue, int codePostal, String ville, String pays) {
         super(nom, prenom, langagePrefere, salaire, rue, codePostal, ville, pays);

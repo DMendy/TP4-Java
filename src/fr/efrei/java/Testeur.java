@@ -1,3 +1,5 @@
+package fr.efrei.java;
+
 public class Testeur extends Collaborateur {
 
     public Testeur(String nom, String prenom, String langagePrefere, double salaire, String rue, int codePostal, String ville, String pays) {

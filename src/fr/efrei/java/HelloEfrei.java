@@ -1,3 +1,5 @@
+package fr.efrei.java;
+
 import java.util.*;
 
 public class HelloEfrei {
@@ -5,10 +7,10 @@ public class HelloEfrei {
 
         Adresse adresse = new Adresse("2 rue des carrières",92220,"Bagneux","France");
 
-        Programmeur Doryan = new Programmeur("Martin", "Doryan", "Java", 10000, adresse.getRue(), adresse.getCodePostal(), adresse.getVille(), adresse.getPays());
+        Programmeur Doryan = new Programmeur("Mendy", "Doryan", "Java", 10000, adresse.getRue(), adresse.getCodePostal(), adresse.getVille(), adresse.getPays());
         Programmeur Alice = new Programmeur("Martin", "Alice", "Java", 48000, adresse.getRue(), adresse.getCodePostal(), adresse.getVille(), adresse.getPays());
         Programmeur Alex = new Programmeur("Dupont", "Alex", "Python", 45000, adresse.getRue(), adresse.getCodePostal(), adresse.getVille(), adresse.getPays());
-//        Formateur formateur = Alice;
+//        fr.efrei.java.Formateur formateur = Alice;
 //        formateur.former();
 //        System.out.println(Doryan.afficher());
 //        Doryan.augmentation(5);
@@ -69,7 +71,7 @@ public class HelloEfrei {
 //                    Alex.afficher();
 //                    break;
 //                case 3:
-//                    Collaborateur nouveau = Collaborateur.creerCollaborateur(scanner);
+//                    fr.efrei.java.Collaborateur nouveau = fr.efrei.java.Collaborateur.creerCollaborateur(scanner);
 //                    nouveau.afficher();
 //                    break;
 //                case 4:

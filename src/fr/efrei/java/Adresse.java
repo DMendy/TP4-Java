@@ -1,3 +1,5 @@
+package fr.efrei.java;
+
 public class Adresse {
     String rue;
     int codePostal;
@@ -45,7 +47,7 @@ public class Adresse {
     }
     @Override
     public String toString() {
-        return "Adresse{" +
+        return "fr.efrei.java.Adresse{" +
                 "rue='" + rue + '\'' +
                 ", codePostal=" + codePostal +
                 ", ville='" + ville + '\'' +
