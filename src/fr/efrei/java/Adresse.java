@@ -1,5 +1,7 @@
 package fr.efrei.java;
 
+import java.util.Scanner;
+
 public class Adresse {
     String rue;
     int codePostal;
@@ -12,6 +14,24 @@ public class Adresse {
         this.codePostal = codePostal;
         this.ville = ville;
         this.pays = pays;
+    }
+
+    public Adresse(Scanner scanner){
+        System.out.println("Entrez votre rue :");
+        String rue = scanner.nextLine();
+
+        System.out.println("Entrez votre codePostal :");
+        int codePostal = scanner.nextInt();
+
+        System.out.println("Entrez votre ville :");
+        String ville = scanner.nextLine();
+
+        System.out.println("Entrez votre pays :");
+        String pays = scanner.nextLine();
+
+        scanner.nextLine();
+
+        this(rue, codePostal, ville, pays);
     }
 
     public int getCodePostal() {

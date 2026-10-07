@@ -1,9 +1,15 @@
 package fr.efrei.java;
 
+import java.util.Scanner;
+
 public class Programmeur extends Collaborateur implements Formateur {
 
     public Programmeur(String nom, String prenom, String langagePrefere, double salaire, String rue, int codePostal, String ville, String pays) {
         super(nom, prenom, langagePrefere, salaire, rue, codePostal, ville, pays);
+    }
+
+    public Programmeur(Scanner scanner){
+        super(scanner);
     }
 
     @Override
@@ -15,11 +21,4 @@ public class Programmeur extends Collaborateur implements Formateur {
     public void former(){
         System.out.println("je suis formateur");
     }
-
-
-    public static Programmeur creerProgrammeur(String nom, String prenom, String langagePrefere,
-                                               double salaire, String rue, int codePostal, String ville, String pays) {
-        return new Programmeur(nom, prenom, langagePrefere, salaire ,rue,codePostal,ville, pays);
-    }
-
 }
