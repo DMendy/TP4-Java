@@ -2,7 +2,12 @@ package fr.efrei.java;
 
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public abstract class Collaborateur {
+
+    protected static final Logger logger = LoggerFactory.getLogger(Collaborateur.class);
 
     protected String identifiant;
     protected String nom;
@@ -64,7 +69,10 @@ public abstract class Collaborateur {
         if ((salaire * (1 + (augmentation / 100))) < 0) {
             System.out.println("Salaire négatif");
         } else {
+            double avant = this.salaire;
             this.salaire = this.salaire * (1 + (augmentation / 100));
+            double apres = this.salaire;
+            logger.debug("Salaire : {} -> {}", avant, apres);             // détail pour l'analyse
         }
     }
 
