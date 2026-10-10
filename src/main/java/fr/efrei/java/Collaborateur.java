@@ -45,6 +45,7 @@ public abstract class Collaborateur {
 
         System.out.println("Entrez votre salaire");
         double salaire = scanner.nextDouble();
+        scanner.nextLine();
 
         this(nom, prenom, languePreferee, salaire, new Adresse(scanner));
     }
@@ -67,13 +68,12 @@ public abstract class Collaborateur {
 
     public void augmentation(double augmentation) {
         if ((salaire * (1 + (augmentation / 100))) < 0) {
-            System.out.println("Salaire négatif");
-        } else {
-            double avant = this.salaire;
-            this.salaire = this.salaire * (1 + (augmentation / 100));
-            double apres = this.salaire;
-            logger.debug("Salaire : {} -> {}", avant, apres);             // détail pour l'analyse
+            throw new IllegalArgumentException("L'augmentation rendrait le salaire négatif");
         }
+        double avant = this.salaire;
+        this.salaire = this.salaire * (1 + (augmentation / 100));
+        double apres = this.salaire;
+        logger.debug("Salaire : {} -> {}", avant, apres);             // détail pour l'analyse
     }
 
     public abstract void travailler();

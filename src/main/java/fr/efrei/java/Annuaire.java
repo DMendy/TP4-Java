@@ -89,29 +89,4 @@ public class Annuaire {
         }
         return liste;
     }
-
-    public static void chercherCollaborateurById(String identifiant) {
-        for (int i = 0; i < collaborateurs.size(); i++) {
-            if (collaborateurs.get(i).getIdentifiant().equals(identifiant)) {
-                System.out.println(collaborateurs.get(i));
-            }
-        }
-    }
-
-
-    public static void chercherCollaborateurByName(String nom) {
-        for (int i = 0; i < collaborateurs.size(); i++) {
-            if (collaborateurs.get(i).getNom().equals(nom) & !collaborateurs.get(i).getNom().isBlank() ) {
-                System.out.println(collaborateurs.get(i));
-            }
-        }
-    }
-
-    public static void afficherCollaborateurSeuil(int seuil) {
-        for (int i = 0; i < collaborateurs.size(); i++) {
-            if (collaborateurs.get(i).getSalaire() > seuil ) {
-                System.out.println(collaborateurs.get(i));
-            }
-        }
-    }
 }

@@ -22,14 +22,13 @@ public class Adresse {
 
         System.out.println("Entrez votre codePostal :");
         int codePostal = scanner.nextInt();
+        scanner.nextLine();
 
         System.out.println("Entrez votre ville :");
         String ville = scanner.nextLine();
 
         System.out.println("Entrez votre pays :");
         String pays = scanner.nextLine();
-
-        scanner.nextLine();
 
         this(rue, codePostal, ville, pays);
     }
@@ -67,7 +66,7 @@ public class Adresse {
     }
     @Override
     public String toString() {
-        return "fr.efrei.java.fr.efrei.java.fr.efrei.java.Adresse{" +
+        return "Adresse{" +
                 "rue='" + rue + '\'' +
                 ", codePostal=" + codePostal +
                 ", ville='" + ville + '\'' +
