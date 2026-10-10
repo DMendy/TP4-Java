@@ -1,15 +1,10 @@
 package fr.efrei.java;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.awt.*;
 import java.util.Scanner;
 
 public class MenuAnnuaire {
     public static void main(String[] args) {
 
-        final Logger logger = LoggerFactory.getLogger(MenuAnnuaire.class);
         fr.efrei.java.Annuaire annuaire = new Annuaire();
         Scanner scanner = new Scanner(System.in);
         boolean continuer = true;
@@ -29,8 +24,8 @@ public class MenuAnnuaire {
                         annuaire.ajouter(alice);
                         System.out.println("Alice (C001) a été ajoutée.");
                     } catch (CollaborateurDejaExistantException e) {
-                        System.out.println(e.getMessage());
-                        logger.error("Échec de l'opération pour {}", e); // erreur, avec la cause
+                        System.out.println("Impossible d'ajouter Alice : l'identifiant "
+                                + e.identifiant() + " est déjà utilisé.");
                     }
                     break;
                 case "2":
