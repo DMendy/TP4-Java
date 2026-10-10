@@ -129,3 +129,35 @@ Pourquoi la transaction est importante :
 * Si une erreur arrive avant, le rollback garantit qu'on n'enregistre rien à moitié
 
 Remarque : le salaire affiché était 52800.00000000001 au lieu de 52800, car les calculs sur les double ne sont pas toujours exacts
+
+## Etape 8 : Retrouver autrement que par identifiant
+
+* Ajout de deux requêtes JPQL dans CollaborateurService :
+  * salaireSuperieurA() : select c from Collaborateur c where c.salaire > :seuil
+  * rechercherParNom() : select c from Collaborateur c where lower(c.nom) like :motif
+* Ajout de deux options dans le menu pour lancer ces recherches, avec un message clair si le seuil n'est pas un nombre
+* Suppression de la classe Annuaire : elle n'était plus utilisée, ses recherches en Java sont remplacées par les requêtes JPQL
+
+C'est quoi JPQL :
+* Le langage de requêtes de JPA, il ressemble au SQL mais il travaille sur les entités et les attributs Java, pas sur les tables et les colonnes
+* Collaborateur et salaire sont des noms Java (avec la casse), c'est Hibernate qui traduit en SQL
+* SQL : SELECT * FROM collaborateur WHERE salaire > 45000 renvoie des lignes
+* JPQL : SELECT c FROM Collaborateur c WHERE c.salaire > :salaire renvoie une liste d'objets Collaborateur
+
+Les paramètres :
+* :seuil et :motif sont des paramètres qu'on remplit avec setParameter
+* On ne construit jamais la requête en concaténant ce que tape l'utilisateur, sinon il pourrait modifier la requête (injection SQL)
+
+Recherche sur le nom :
+* like permet de chercher un texte qui ressemble à un modèle, % veut dire "n'importe quoi"
+* "%" + fragment + "%" veut dire "le nom contient le texte tapé"
+* lower(c.nom) et fragment.toLowerCase() mettent tout en minuscules pour ne pas tenir compte de la casse
+
+Tests :
+* Seuil 45000 : on retrouve Alice (Programmeur) et un testeur ajouté pour le test
+* Seuil 100000 : aucun collaborateur trouvé
+* Recherche "MAR" : on retrouve Martin et Marchand malgré les majuscules
+* Une requête sur Collaborateur renvoie des objets de leur vrai type (Programmeur ou Testeur), vérifié avec getClass()
+* Grâce à SINGLE_TABLE, le SQL généré porte sur une seule table, sans jointure
+
+Pourquoi filtrer en JPQL plutôt qu'en Java : c'est la base qui fait le tri et on ne charge que les résultats, pas toute la table
