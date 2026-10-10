@@ -2,21 +2,45 @@ package fr.efrei.java;
 
 import java.util.Scanner;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Transient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "metier", length = 40)
 public abstract class Collaborateur {
 
     protected static final Logger logger = LoggerFactory.getLogger(Collaborateur.class);
 
+    @Id
+    @Column(length = 10)
     protected String identifiant;
-    protected String nom;
-    protected String prenom;
-    protected String langagePrefere;
-    protected double salaire;
-    protected fr.efrei.java.Adresse adresse;
 
-    public Collaborateur(String nom, String prenom, String langagePrefere, double salaire, fr.efrei.java.Adresse adresse) {
+    @Column(nullable = false, length = 50)
+    protected String nom;
+
+    @Column(length = 50)
+    protected String prenom;
+
+    @Column(length = 40)
+    protected String langagePrefere;
+
+    @Column(nullable = false)
+    protected double salaire;
+
+    @Transient
+    protected Adresse adresse;
+
+    protected Collaborateur() { }
+
+    public Collaborateur(String nom, String prenom, String langagePrefere, double salaire, Adresse adresse) {
         verifierNom(nom);
         verifierSalaire(salaire);
 

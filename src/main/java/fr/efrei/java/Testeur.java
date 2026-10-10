@@ -2,7 +2,14 @@ package fr.efrei.java;
 
 import java.util.Scanner;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("Testeur")
 public class Testeur extends Collaborateur {
+
+    protected Testeur() { }
 
     public Testeur(String nom, String prenom, String langagePrefere, double salaire, String rue, int codePostal, String ville, String pays) {
         super(nom, prenom, langagePrefere, salaire, rue, codePostal, ville, pays);
