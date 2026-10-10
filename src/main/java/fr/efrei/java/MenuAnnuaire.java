@@ -17,6 +17,7 @@ public class MenuAnnuaire {
             System.out.println("1 - Ajouter Alice (C001)");
             System.out.println("2 - Afficher le nombre de collaborateurs");
             System.out.println("3 - Rechercher un collaborateur par identifiant");
+            System.out.println("4 - Augmenter le salaire d'un collaborateur");
             System.out.println("0 - Quitter");
             String choix = scanner.nextLine();
 
@@ -44,6 +45,23 @@ public class MenuAnnuaire {
                         System.out.println("Aucun collaborateur avec l'identifiant " + identifiant + ".");
                     } else {
                         trouve.afficher();
+                    }
+                    break;
+                case "4":
+                    System.out.println("Identifiant du collaborateur :");
+                    String id = scanner.nextLine();
+                    System.out.println("Pourcentage d'augmentation :");
+                    try {
+                        double pourcentage = Double.parseDouble(scanner.nextLine());
+                        if (service.augmenter(id, pourcentage)) {
+                            System.out.println("Augmentation appliquée.");
+                        } else {
+                            System.out.println("Aucun collaborateur avec l'identifiant " + id + ".");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Le pourcentage doit être un nombre.");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Augmentation refusée : " + e.getMessage());
                     }
                     break;
                 case "0":

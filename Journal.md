@@ -100,3 +100,32 @@ Limites d'une clé comme C001 :
 * C'est à nous de choisir le prochain identifiant : si deux utilisateurs créent C007 en même temps, un des deux aura une erreur
 * Si on se trompe (C01 au lieu de C001), il faut corriger la clé partout où elle est utilisée (par exemple dans la table adresse plus tard)
 * Une clé plus propre serait un identifiant sans signification, fabriqué automatiquement par la base
+
+## Etape 7 : Alice obtient une augmentation sans écrire UPDATE
+
+* Ajout de la méthode augmenter() dans CollaborateurService :
+  * Dans une transaction : find pour charger le collaborateur, appel de sa méthode augmentation(), puis commit
+  * On n'appelle ni persist ni aucune autre méthode JPA
+  * Si l'identifiant n'existe pas, la méthode renvoie false
+* Ajout d'une option dans le menu pour augmenter le salaire d'un collaborateur
+  * Message clair si le pourcentage n'est pas un nombre, si l'identifiant n'existe pas, ou si le salaire deviendrait négatif
+
+Tests :
+* Augmentation de 10% pour Alice : son salaire passe de 48000 à 52800 en base
+* Dans la console on voit une instruction update au moment du commit, alors qu'on ne l'a jamais écrite
+* Variante 1 : on modifie le salaire après la fermeture de l'EntityManager. Le salaire change dans l'objet Java mais pas en base, l'objet est détaché
+* Variante 2 : on lance une exception avant le commit. Le rollback annule tout, le salaire en base ne change pas
+
+Où est le UPDATE ?
+* C'est Hibernate qui le génère. Au commit, il compare l'entité avec son état au moment du find et écrit seulement ce qui a changé
+
+Entité gérée et contexte de persistance :
+* Une entité gérée est un objet chargé (find) ou enregistré (persist) par un EntityManager qui est encore ouvert
+* Le contexte de persistance est ce que l'EntityManager utilise pour suivre les entités gérées et leurs modifications
+* Quand l'EntityManager est fermé, l'objet devient détaché : ses modifications ne vont plus en base
+
+Pourquoi la transaction est importante :
+* C'est le commit qui envoie les modifications en base
+* Si une erreur arrive avant, le rollback garantit qu'on n'enregistre rien à moitié
+
+Remarque : le salaire affiché était 52800.00000000001 au lieu de 52800, car les calculs sur les double ne sont pas toujours exacts

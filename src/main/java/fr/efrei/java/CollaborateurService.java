@@ -35,6 +35,27 @@ public class CollaborateurService {
         }
     }
 
+    public boolean augmenter(String identifiant, double pourcentage) {
+        try (EntityManager em = fabrique.createEntityManager()) {
+            EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
+            try {
+                Collaborateur collaborateur = em.find(Collaborateur.class, identifiant);
+                if (collaborateur == null) {
+                    transaction.rollback();
+                    return false;
+                }
+                collaborateur.augmentation(pourcentage);
+                transaction.commit();
+                logger.info("Augmentation de {} % pour {}", pourcentage, identifiant);
+                return true;
+            } catch (RuntimeException e) {
+                transaction.rollback();
+                throw e;
+            }
+        }
+    }
+
     public Collaborateur trouver(String identifiant) {
         try (EntityManager em = fabrique.createEntityManager()) {
             return em.find(Collaborateur.class, identifiant);
