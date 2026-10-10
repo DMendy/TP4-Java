@@ -72,3 +72,31 @@ Premier contact (classe PremierContact) :
 * Test avec MySQL arrêté : grosse stack trace avec "Connection refused"
   * Il faut lire le dernier "Caused by" pour trouver la vraie cause : la base n'est pas démarrée
   * Ce message est pour le développeur, pas pour l'utilisateur. Pour l'utilisateur il faudrait un message simple comme "Impossible de se connecter à la base de données"
+
+## Etape 6 : Alice entre dans la base
+
+* Création de la classe CollaborateurService qui contient tout le code JPA (le menu ne fait que dialoguer avec l'utilisateur)
+  * Elle reçoit l'EntityManagerFactory dans son constructeur
+  * ajouter() : dans une transaction, find pour vérifier le doublon, puis persist et commit. En cas d'erreur on fait un rollback
+  * trouver() : un simple em.find(), pas besoin de transaction pour une lecture
+  * nombre() : compte les collaborateurs en base
+* Dans MenuAnnuaire :
+  * L'EntityManagerFactory est créée une seule fois au démarrage (elle est coûteuse) et fermée quand on quitte
+  * Un EntityManager est créé pour chaque opération puis fermé
+  * Ajout d'une option pour rechercher un collaborateur par identifiant
+  * La Map d'Annuaire n'est plus utilisée : c'est maintenant la base qui contient les données
+
+Tests :
+* On ajoute Alice (C001), on quitte, on relance : on la retrouve avec find, elle n'a pas disparu
+* On ajoute deux fois C001 : le doublon est refusé avec notre exception et un message clair
+* find avec un identifiant qui n'existe pas (C999) renvoie null
+
+Règle du doublon :
+* La clé primaire empêche bien les doublons en base, mais l'erreur arrive seulement au commit sous forme d'erreur SQL, ce qui n'est pas compréhensible pour l'utilisateur
+* C'est pour ça qu'on fait un find avant le persist : on peut lancer notre CollaborateurDejaExistantException avec un message adapté
+
+Limites d'une clé comme C001 :
+* Le format "C + 3 chiffres" limite à 999 collaborateurs, à C1000 le format ne tient plus
+* C'est à nous de choisir le prochain identifiant : si deux utilisateurs créent C007 en même temps, un des deux aura une erreur
+* Si on se trompe (C01 au lieu de C001), il faut corriger la clé partout où elle est utilisée (par exemple dans la table adresse plus tard)
+* Une clé plus propre serait un identifiant sans signification, fabriqué automatiquement par la base
