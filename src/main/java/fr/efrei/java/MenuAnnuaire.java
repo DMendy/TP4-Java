@@ -3,6 +3,7 @@ package fr.efrei.java;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuAnnuaire {
@@ -18,6 +19,8 @@ public class MenuAnnuaire {
             System.out.println("2 - Afficher le nombre de collaborateurs");
             System.out.println("3 - Rechercher un collaborateur par identifiant");
             System.out.println("4 - Augmenter le salaire d'un collaborateur");
+            System.out.println("5 - Collaborateurs dont le salaire dépasse un seuil");
+            System.out.println("6 - Rechercher des collaborateurs par nom");
             System.out.println("0 - Quitter");
             String choix = scanner.nextLine();
 
@@ -64,6 +67,19 @@ public class MenuAnnuaire {
                         System.out.println("Augmentation refusée : " + e.getMessage());
                     }
                     break;
+                case "5":
+                    System.out.println("Seuil de salaire :");
+                    try {
+                        double seuil = Double.parseDouble(scanner.nextLine());
+                        afficherListe(service.salaireSuperieurA(seuil));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Le seuil doit être un nombre.");
+                    }
+                    break;
+                case "6":
+                    System.out.println("Nom (ou morceau du nom) :");
+                    afficherListe(service.rechercherParNom(scanner.nextLine()));
+                    break;
                 case "0":
                     continuer = false;
                     break;
@@ -72,5 +88,15 @@ public class MenuAnnuaire {
             }
         }
         fabrique.close();
+    }
+
+    private static void afficherListe(List<Collaborateur> collaborateurs) {
+        if (collaborateurs.isEmpty()) {
+            System.out.println("Aucun collaborateur trouvé.");
+        }
+        for (Collaborateur c : collaborateurs) {
+            System.out.print(c.getClass().getSimpleName() + " " + c.getIdentifiant() + " - ");
+            c.afficher();
+        }
     }
 }

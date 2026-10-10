@@ -6,6 +6,8 @@ import jakarta.persistence.EntityTransaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class CollaborateurService {
 
     private static final Logger logger = LoggerFactory.getLogger(CollaborateurService.class);
@@ -66,6 +68,26 @@ public class CollaborateurService {
         try (EntityManager em = fabrique.createEntityManager()) {
             return em.createQuery("select count(c) from Collaborateur c", Long.class)
                     .getSingleResult();
+        }
+    }
+
+    public List<Collaborateur> salaireSuperieurA(double seuil) {
+        try (EntityManager em = fabrique.createEntityManager()) {
+            return em.createQuery(
+                            "select c from Collaborateur c where c.salaire > :seuil",
+                            Collaborateur.class)
+                    .setParameter("seuil", seuil)
+                    .getResultList();
+        }
+    }
+
+    public List<Collaborateur> rechercherParNom(String fragment) {
+        try (EntityManager em = fabrique.createEntityManager()) {
+            return em.createQuery(
+                            "select c from Collaborateur c where lower(c.nom) like :motif",
+                            Collaborateur.class)
+                    .setParameter("motif", "%" + fragment.toLowerCase() + "%")
+                    .getResultList();
         }
     }
 }
