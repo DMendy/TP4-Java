@@ -40,10 +40,11 @@ public abstract class Collaborateur {
 
     protected Collaborateur() { }
 
-    public Collaborateur(String nom, String prenom, String langagePrefere, double salaire, Adresse adresse) {
+    public Collaborateur(String identifiant, String nom, String prenom, String langagePrefere, double salaire, Adresse adresse) {
         verifierNom(nom);
         verifierSalaire(salaire);
 
+        this.identifiant = identifiant;
         this.nom = nom;
         this.prenom = prenom;
         this.langagePrefere = langagePrefere;
@@ -51,12 +52,13 @@ public abstract class Collaborateur {
         this.adresse = adresse;
     }
 
-    public Collaborateur(String nom, String prenom, String langagePrefere, double salaire, String rue, int codePostal, String ville, String pays) {
-        this(nom, prenom, langagePrefere, salaire, new fr.efrei.java.Adresse(rue, codePostal, ville, pays));
+    public Collaborateur(String identifiant, String nom, String prenom, String langagePrefere, double salaire, String rue, int codePostal, String ville, String pays) {
+        this(identifiant, nom, prenom, langagePrefere, salaire, new fr.efrei.java.Adresse(rue, codePostal, ville, pays));
     }
 
     public Collaborateur(Scanner scanner){
-        scanner.nextLine();
+        System.out.println("Entrez votre identifiant");
+        String identifiant = scanner.nextLine();
 
         System.out.println("Entrez votre le nom");
         String nom = scanner.nextLine();
@@ -71,7 +73,7 @@ public abstract class Collaborateur {
         double salaire = scanner.nextDouble();
         scanner.nextLine();
 
-        this(nom, prenom, languePreferee, salaire, new Adresse(scanner));
+        this(identifiant, nom, prenom, languePreferee, salaire, new Adresse(scanner));
     }
 
     private void verifierNom(String nom) {

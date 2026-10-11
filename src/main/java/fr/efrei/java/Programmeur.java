@@ -11,8 +11,8 @@ public class Programmeur extends Collaborateur implements Formateur {
 
     protected Programmeur() { }
 
-    public Programmeur(String nom, String prenom, String langagePrefere, double salaire, String rue, int codePostal, String ville, String pays) {
-        super(nom, prenom, langagePrefere, salaire, rue, codePostal, ville, pays);
+    public Programmeur(String identifiant, String nom, String prenom, String langagePrefere, double salaire, String rue, int codePostal, String ville, String pays) {
+        super(identifiant, nom, prenom, langagePrefere, salaire, rue, codePostal, ville, pays);
     }
 
     public Programmeur(Scanner scanner){

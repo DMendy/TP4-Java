@@ -21,14 +21,14 @@ public class MenuAnnuaire {
             System.out.println("4 - Augmenter le salaire d'un collaborateur");
             System.out.println("5 - Collaborateurs dont le salaire dépasse un seuil");
             System.out.println("6 - Rechercher des collaborateurs par nom");
+            System.out.println("7 - Ajouter un Collaborateur");
             System.out.println("0 - Quitter");
             String choix = scanner.nextLine();
 
             switch (choix) {
                 case "1":
-                    Programmeur alice = new Programmeur("Martin", "Alice", "Java",
+                    Programmeur alice = new Programmeur("C001", "Martin", "Alice", "Java",
                             48000, "2 rue des carrières", 92220, "Bagneux", "France");
-                    alice.setIdentifiant("C001");
                     try {
                         service.ajouter(alice);
                         System.out.println("Alice (C001) a été ajoutée.");
@@ -79,6 +79,30 @@ public class MenuAnnuaire {
                 case "6":
                     System.out.println("Nom (ou morceau du nom) :");
                     afficherListe(service.rechercherParNom(scanner.nextLine()));
+                    break;
+                case "7":
+                    System.out.println("Quel type de collaborateur voulez-vous ajouter ?");
+                    System.out.println("1 - Programmeur");
+                    System.out.println("2 - Testeur");
+                    String type = scanner.nextLine();
+
+                    Collaborateur collaborateur;
+
+                    if (type.equals("1")) {
+                        collaborateur = new Programmeur(scanner);
+                    } else if (type.equals("2")) {
+                        collaborateur = new Testeur(scanner);
+                    } else {
+                        System.out.println("Choix invalide.");
+                        break;
+                    }
+                    try {
+                        service.ajouter(collaborateur);
+                        System.out.println(collaborateur.getPrenom() + " (" + collaborateur.getIdentifiant() + ") à été ajoutée.");
+                    } catch (CollaborateurDejaExistantException e) {
+                        System.out.println("Impossible d'ajouter " + collaborateur.getPrenom() + " : l'identifiant "
+                                + e.identifiant() + " est déjà utilisé.");
+                    }
                     break;
                 case "0":
                     continuer = false;

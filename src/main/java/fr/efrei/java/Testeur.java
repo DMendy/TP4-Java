@@ -11,8 +11,8 @@ public class Testeur extends Collaborateur {
 
     protected Testeur() { }
 
-    public Testeur(String nom, String prenom, String langagePrefere, double salaire, String rue, int codePostal, String ville, String pays) {
-        super(nom, prenom, langagePrefere, salaire, rue, codePostal, ville, pays);
+    public Testeur(String identifiant, String nom, String prenom, String langagePrefere, double salaire, String rue, int codePostal, String ville, String pays) {
+        super(identifiant, nom, prenom, langagePrefere, salaire, rue, codePostal, ville, pays);
     }
 
     public Testeur (Scanner scanner){
