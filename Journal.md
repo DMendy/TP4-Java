@@ -223,3 +223,27 @@ Plusieurs décisions prises par l’outil sont visibles :
 
 * Aucune logique métier générée : uniquement getters/setters, pas de constructeurs personnalisés.
 → L’outil ne connaît pas le métier ; notre classe manuelle contient des méthodes métier (ex. augmentation).
+
+## Etape 11 : Vérifications
+
+1. Le projet se construit avec Maven : la structure du projet respecte les conventions Maven, le pom.xml gère les dépendances (JPA, Hibernate, MySQL, SLF4J).
+
+2. Une règle métier importante est protégée par une exception dédiée : l’ajout d’un collaborateur vérifie si son identifiant est deja présent dans la BDD. En cas de doublon, l’application lève CollaborateurDejaExistantException.
+
+3. Les exceptions ne sont pas avalées : dans CollaborateurService, les exceptions sont ne sont pas perdu grâce a l'utilisation de try/catch.
+
+4. Le debugger permet de diagnostiquer un problème en stoppant l'execution du code à un endroit precis afin de comprendre facilement l'origine d'une erreur ou de connaitre la valeur des variables.
+
+5. Les logs restent techniques : SLF4J est utilisé pour tracer les opérations (persist, update, doublons), sans messages métier.
+
+6. Une entité est persistée puis retrouvée : un collaborateur est ajouté via em.persist() puis récupéré via em.find() ou une requête JPQL.
+
+7. Une modification d’entité gérée est synchronisée. Par exemple l'utilisation de la methode permettant d'augmenter le salaire, enregistre la modification dans la BDD.
+
+8. Une requête JPQL fonctionne : les méthodes rechercherParNom, salaireSuperieurA et getAllCollaborateurs démontrent l’usage correct de JPQL.
+
+9. La relation avec Adresse est comprise : la relation @OneToOne avec @JoinColumn place la clé étrangère dans la table Collaborateur.
+
+10. Les limites d’une clé comme C001 sont comprises : une clé métier est lisible mais fragile (risque de collision, dépendance au format, pas adaptée à des volumes importants). Une clé auto‑générée serait plus robuste.
+
+11. HelloEfrei ne concentre pas toute la logique : la logique métier est répartie entre les classes (Collaborateur, Adresse) et le service (CollaborateurService), ce qui respecte la séparation des responsabilités

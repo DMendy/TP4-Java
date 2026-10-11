@@ -6,7 +6,7 @@ import jakarta.persistence.Persistence;
 import java.util.List;
 import java.util.Scanner;
 
-public class MenuAnnuaire {
+public class HelloEffrei {
     public static void main(String[] args) {
 
         EntityManagerFactory fabrique = Persistence.createEntityManagerFactory("collaborateurs-pu");
