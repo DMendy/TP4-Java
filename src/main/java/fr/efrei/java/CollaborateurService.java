@@ -37,6 +37,14 @@ public class CollaborateurService {
         }
     }
 
+    public List<Collaborateur> getAllCollaorateurs() {
+        try (EntityManager em = fabrique.createEntityManager()) {
+            return em.createQuery("select c from Collaborateur c", Collaborateur.class)
+                    .getResultList();
+        }
+    }
+
+
     public boolean augmenter(String identifiant, double pourcentage) {
         try (EntityManager em = fabrique.createEntityManager()) {
             EntityTransaction transaction = em.getTransaction();

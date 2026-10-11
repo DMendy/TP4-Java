@@ -22,6 +22,7 @@ public class MenuAnnuaire {
             System.out.println("5 - Collaborateurs dont le salaire dépasse un seuil");
             System.out.println("6 - Rechercher des collaborateurs par nom");
             System.out.println("7 - Ajouter un Collaborateur");
+            System.out.println("8 - Afficher tous les collaborateurs");
             System.out.println("0 - Quitter");
             String choix = scanner.nextLine();
 
@@ -104,6 +105,11 @@ public class MenuAnnuaire {
                                 + e.identifiant() + " est déjà utilisé.");
                     }
                     break;
+
+                case "8":
+                    afficherListe(service.getAllCollaorateurs());
+                    break;
+
                 case "0":
                     continuer = false;
                     break;

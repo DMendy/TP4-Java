@@ -89,7 +89,13 @@ public abstract class Collaborateur {
     }
 
     public void afficher() {
-        System.out.println("Prénom : " + prenom + " Nom : " + nom + " langage pref : " + langagePrefere + " salaire :" + salaire);
+        System.out.println(
+                "ID : " + identifiant +
+                        " | Nom : " + nom +
+                        " | Prénom : " + prenom +
+                        " | Langage : " + langagePrefere +
+                        " | Salaire : " + salaire
+        );
     }
 
     public void augmentation(double augmentation) {

@@ -20,7 +20,7 @@ Objectif : obtenir une version unique, propre, cohérente et comprise par nous d
   * Ajout d’un try/catch spécifique pour afficher un message utilisateur clair.
   * Lorsque l'on ajoute deux fois C001 par exemple, le programme ne s'interrompt pas et un message d'erreur comprehensible est affiché 
 
-TP4.3 : Passage du projet en Maven
+## Etape 3 : Passage du projet en Maven
 
 * Création d'un nouveau projet Maven
 * Copie des fichiers de l'ancien projet vers le nouveau projet Maven
@@ -161,3 +161,5 @@ Tests :
 * Grâce à SINGLE_TABLE, le SQL généré porte sur une seule table, sans jointure
 
 Pourquoi filtrer en JPQL plutôt qu'en Java : c'est la base qui fait le tri et on ne charge que les résultats, pas toute la table
+
+## Etape 9 : Persistance des objets de la classse Adresse
