@@ -203,3 +203,23 @@ Dans Collaborateur, suppression de @Transient et ajout de la relation :
 private Adresse adresse;
 
 → La clé étrangère est portée par la table des collaborateurs, ce qui correspond à notre analyse métier.
+
+## Etape 10 : Génération automatique de CollaborateurDemo
+
+Après génération automatique de CollaborateurDemo depuis la table collaborateur_demo, nous avons comparé cette version avec notre classe Collaborateur créée manuellement.
+Plusieurs décisions prises par l’outil sont visibles :
+
+* Clé primaire conservée comme String sans @GeneratedValue : IntelliJ considère que la clé (ex. C001) est une clé métier fournie par l’application.
+→ Décision comprise et cohérente avec notre propre classe.
+
+* Types objets utilisés (Double, String) pour gérer la valeur null : un type objet peut être null, contrairement à un primitif.
+→ L’outil respecte fidèlement le schéma SQL (colonnes nullable ou non).
+
+* Annotations @Column générées systématiquement : nom exact de la colonne, longueur, nullable.
+→ L’outil suit strictement la base, alors que notre classe manuelle est plus simplifie.
+
+* Nommage automatique en camelCase : id_collaborateur → idCollaborateur.
+→ Décision logique pour passer du SQL au Java.
+
+* Aucune logique métier générée : uniquement getters/setters, pas de constructeurs personnalisés.
+→ L’outil ne connaît pas le métier ; notre classe manuelle contient des méthodes métier (ex. augmentation).
