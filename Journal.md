@@ -7,9 +7,16 @@ Objectif : obtenir une version unique, propre, cohérente et comprise par nous d
 ## Etape 1 : Détection des types d'erreurs
 
 * Identification de 2 cas provoquant un comportement incorrect :
-  * Saisie invalide (texte au lieu d’un nombre).
-  * Identifiant collaborateur déjà utilisé.
 
+* Erreur 1 : saisie invalide
+  * Action : taper “abc” pour un salaire
+  * Comportement observé : InputMismatchException, l’application plante
+  * Comportement souhaité : message clair “Veuillez entrer un nombre”
+
+* Erreur 2 : identifiant déjà utilisé
+  * Action : ajouter deux fois C001
+  * Comportement observé : doublon refusé par la base, erreur SQL
+  * Comportement souhaité : message clair via CollaborateurDejaExistantException
   
 ## Etape 2 : Gestion des erreurs
 
@@ -163,3 +170,36 @@ Tests :
 Pourquoi filtrer en JPQL plutôt qu'en Java : c'est la base qui fait le tri et on ne charge que les résultats, pas toute la table
 
 ## Etape 9 : Persistance des objets de la classse Adresse
+
+### Relation Adresse / Collaborateur
+
+Dans notre application, une adresse est toujours créée au moment où l’utilisateur crée un collaborateur depuis le terminal. Ainsi, elle est toujours associée à un seul collaborateur.
+
+Nous avons donc choisi le modèle suivant :
+- un collaborateur possède une seule adresse ;
+- une adresse appartient à un seul collaborateur ;
+- une adresse n’existe pas sans collaborateur.
+
+Ce choix correspond à la manière dont le programme fonctionne : l’adresse est saisie directement par l’utilisateur pour un collaborateur précis, et n’est jamais réutilisée ailleurs.
+
+D’autres modèles auraient été possibles :
+- plusieurs collaborateurs pourraient partager la même adresse (par exemple s’ils vivent ensemble) ;
+- une adresse pourrait exister sans collaborateur, si l’on voulait préparer une liste d’adresses à choisir.
+
+Nous ne retenons pas ces variantes car elles ne sont pas nécessaires pour les besoins du TP et compliqueraient inutilement le modèle.
+
+La classe Adresse est devenue une classe persistante :
+
+* ajout de @Entity ;
+* ajout d’un identifiant technique généré automatiquement (@Id + @GeneratedValue(strategy = GenerationType.IDENTITY)) ;
+* ajout d’un constructeur vide protected Adresse() exigé par JPA.
+
+Ajout de Adresse dans persistence.xml pour que JPA la prenne en charge.
+
+Dans Collaborateur, suppression de @Transient et ajout de la relation :
+
+@OneToOne(cascade = CascadeType.PERSIST)
+@JoinColumn(name = "adresse_id")
+private Adresse adresse;
+
+→ La clé étrangère est portée par la table des collaborateurs, ce qui correspond à notre analyse métier.

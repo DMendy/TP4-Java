@@ -2,13 +2,7 @@ package fr.efrei.java;
 
 import java.util.Scanner;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +29,8 @@ public abstract class Collaborateur {
     @Column(nullable = false)
     protected double salaire;
 
-    @Transient
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "adresse_id")
     protected Adresse adresse;
 
     protected Collaborateur() { }

@@ -2,12 +2,28 @@ package fr.efrei.java;
 
 import java.util.Scanner;
 
+import jakarta.persistence.*;
+
+
+@Entity
 public class Adresse {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(length = 50)
     String rue;
+
+    @Column(length = 5)
     int codePostal;
+
+    @Column(length = 50)
     String ville;
+
+    @Column(length = 40)
     String pays;
 
+    protected Adresse() { }
 
     public Adresse (String rue, int codePostal, String ville, String pays){
         this.rue = rue;
